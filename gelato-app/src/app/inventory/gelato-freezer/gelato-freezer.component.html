@@ -1,0 +1,10 @@
+<div class="card text-white bg-secondary" style="width: 18rem;">
+    <div class="card-header text-center">
+        FREEZER
+    </div>
+    <table class="table table-striped table-hover bg-info ">
+        <tbody>
+            <tr *ngFor='let g of gelatos'><td>{{g.cuba}}</td><td>{{g.flavour}}</td><td>{{g.quantityInGrams | number:'4.2'}}</td></tr>
+        </tbody>
+    </table>
+</div>

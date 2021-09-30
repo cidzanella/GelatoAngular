@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="alert alert-info" *ngIf="editForm.dirty">
+            <strong>Informação:</strong> Você fez alterações que ainda não foram salvas. Clique em Registrar para salvar as mudanças!
+        </div>
+        <div class="card">
+            <div class="card-header" *ngIf="rawMaterial">Matéria Prima</div>
+            <div class="card-body">
+                <form #editForm="ngForm" (ngSubmit)="updateRawMaterial()" autocomplete="off" id="editForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <input type="hidden" *ngIf="rawMaterial" [(ngModel)]="rawMaterial.id" class="text form-control" name="id">
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label for="supplier">Nome </label>
+                            <input *ngIf="rawMaterial" [(ngModel)]="rawMaterial.name" class="text form-control" name="name">
+                            <!-- <input class="text form-control" name="name" [value]="rawMaterial.name || ''"/> -->
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <label for="supplier">Fornecedor</label>
+                            <select *ngIf="rawMaterial" [(ngModel)]="rawMaterial.supplierId" class="form-select form-control" name="supplier">
+                                <option *ngFor="let supplier of rawMaterialSuppliers" 
+                                [value]="supplier.id" 
+                                [ngValue]="supplier.id" 
+                                [selected]="supplier.id == rawMaterial.supplierId || 0">
+                                    {{supplier.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <label for="type">Tipo</label>
+                            <select *ngIf="rawMaterial" [(ngModel)]="rawMaterial.typeId" class="form-select form-control" name="type">
+                                <option *ngFor="let materialType of rawMaterialTypes" 
+                                [value]="materialType.id" 
+                                [ngValue]="materialType.id"
+                                [selected]="materialType.id == rawMaterial.typeId || 0">
+                                    {{materialType.type}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <label>Status</label>
+                                <div class="form-check form-switch">
+                                <label class="form-check-label" for="checkActive">
+                                    <input class="form-check-input inline" type="checkbox" name="active" value="true"
+                                     id="checkActive" *ngIf="rawMaterial" [(ngModel)]="rawMaterial.active"  [checked]="rawMaterial.active"  >
+                                    Ativo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button form="editForm" type="submit" class="btn btn-success btn-block" [disabled]="!editForm.dirty">Registrar</button>
+            </div>
+        </div>
+    </div>
+</div>

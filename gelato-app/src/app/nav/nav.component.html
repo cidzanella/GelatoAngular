@@ -1,0 +1,78 @@
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ">
+    <div class="container ">
+      <a class="navbar-brand" routerLinkActive='active' routerLink='/'>PERDONATO</a>
+      <button class="navbar-toggler collapsed" (click)="isCollapsed = !isCollapsed" type="button" data-bs-toggle="collapse" 
+        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" 
+        aria-expanded="false" aria-label="Toggle navigation" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" [collapse]="isCollapsed" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto" *ngIf="authService.currentUser$ | async" >
+          <!-- Produção -->
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive='active' routerLink='/production'>Produção</a>
+          </li>
+          <!-- Vitrine -->
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive='active' routerLink='/gelato-display'>Vitrine</a>
+          </li>
+          <!-- Estoque -->
+          <li class="nav-item" >
+            <div class="dropdown" dropdown routerLinkActive='active'>
+              <a class="nav-link" id="dropdownMenuInventory" dropdownToggle (click)="false">Estoque</a>
+              <ul class="dropdown-menu" *dropdownMenu aria-labelledby="dropdownMenuInventory">
+                <li role="menuitem"><a class="dropdown-item" routerLink='/inventory/gelato-freezer'>Freezer Gelato</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink='/inventory/'>Principal</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink='/inventory/'>Gelateria</a></li>
+              </ul>
+            </div>     
+          </li>     
+          <!-- Configurações  -->
+          <li class="nav-item">
+            <div class="dropdown" dropdown routerLinkActive='active'>
+              <a class="nav-link" id="dropdownMenuSettings" dropdownToggle (click)="false">Configurações</a>
+              <ul class="dropdown-menu" *dropdownMenu aria-labelledby="dropdownMenuSettings">
+                <li role="menuitem"><a class="dropdown-item" routerLink='/rawmaterials'>Matéria Prima</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink='#'>Base Branca</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink='#'>Base Caramello</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink='/gelatos'>Gelato</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink='#'>Sorbetto</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink='#'>Material Consumo</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <div class="dropdown" dropdown *ngIf="authService.currentUser$ | async" >
+          <a class="nav-link text-white" id="dropdownMenuLogin" dropdownToggle (click)="false"
+          aria-controls="basic-link-dropdown"> Olá {{loggedUsername}}!</a>
+          <ul class="dropdown-menu" id="dropdown-basic" *dropdownMenu
+              role="menu" aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item" href="#">Perfil</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="logout()">Sair</a></li>
+          </ul>
+        </div>
+
+        <form *ngIf="(authService.currentUser$ | async) == null" #loginForm="ngForm" 
+              class="d-flex ml-auto" (ngSubmit)="login()" autocomplete="off">
+            <input 
+                name="username"
+                [(ngModel)]="model.username"
+                class="form-control-sm my-2 mx-2" 
+                type="text" 
+                placeholder="Username">
+            <input 
+                name="password"
+                [(ngModel)]="model.password"
+                class="form-control-sm my-2 mx-2" 
+                type="password" 
+                placeholder="Password">
+            <button class="btn btn-sm btn-outline-success my-2 mx-2" type="submit">Login</button>
+        </form>
+
+      </div>
+    </div>
+  </nav>

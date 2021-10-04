@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { DisplayFlowComponent } from './gelato-display/display-flow/display-flow.component';
 import { GelatoDetailComponent } from './gelatos/gelato-detail/gelato-detail.component';
 import { GelatoListComponent } from './gelatos/gelato-list/gelato-list.component';
@@ -30,7 +33,10 @@ const routes: Routes = [
       {path: 'rawmaterials/update/:id', component: RawmaterialUpdateComponent }
     ]
   },
-  {path: '**', component: HomeComponent, pathMatch:'full'}
+  {path: 'errors', component: TestErrorsComponent},
+  {path: 'not-found', component: NotFoundComponent},
+  {path: 'server-error', component: ServerErrorComponent},
+  {path: '**', component: NotFoundComponent, pathMatch:'full'}
 ];
 
 @NgModule({

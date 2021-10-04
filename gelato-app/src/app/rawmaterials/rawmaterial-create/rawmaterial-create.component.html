@@ -1,2 +1,8 @@
-<h4>Create</h4>
-<app-rawmaterial-form></app-rawmaterial-form>
+<app-rawmaterial-form [formMainLabel]="formCreateLabel"
+    [isToResetForm]="clearForm"
+    [rawMaterial]="rawMaterial"
+    (cancelEditing)="cancelCreating()"
+    (registerRawMaterial)="createRawMaterial($event)"
+>
+
+</app-rawmaterial-form>

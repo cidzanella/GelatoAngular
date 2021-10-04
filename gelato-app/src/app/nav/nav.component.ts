@@ -27,9 +27,6 @@ export class NavComponent implements OnInit {
     this.authService.login(this.model).subscribe(response => {
       this.router.navigateByUrl('/gelato-display');
       //this.loggedUsername = response.userName;
-    }, error => {
-      console.log(error);
-      this.toastr.error(error.error);
     })
   }
 

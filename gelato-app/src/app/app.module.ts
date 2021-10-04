@@ -30,6 +30,10 @@ import { RawmaterialListComponent } from './rawmaterials/rawmaterial-list/rawmat
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { RawmaterialCreateComponent } from './rawmaterials/rawmaterial-create/rawmaterial-create.component';
 import { RawmaterialUpdateComponent } from './rawmaterials/rawmaterial-update/rawmaterial-update.component';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,10 @@ import { RawmaterialUpdateComponent } from './rawmaterials/rawmaterial-update/ra
     RawmaterialFormComponent,
     RawmaterialListComponent,
     RawmaterialCreateComponent,
-    RawmaterialUpdateComponent
+    RawmaterialUpdateComponent,
+    TestErrorsComponent,
+    NotFoundComponent,
+    ServerErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +73,8 @@ import { RawmaterialUpdateComponent } from './rawmaterials/rawmaterial-update/ra
     SharedModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

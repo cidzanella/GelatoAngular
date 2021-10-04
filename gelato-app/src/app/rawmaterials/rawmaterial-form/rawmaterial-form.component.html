@@ -5,9 +5,9 @@
             <strong>Informação:</strong> Você fez alterações que ainda não foram salvas. Clique em Registrar para salvar as mudanças!
         </div>
         <div class="card">
-            <div class="card-header" *ngIf="rawMaterial">Matéria Prima</div>
+            <div class="card-header" *ngIf="rawMaterial">{{formMainLabel}}</div>
             <div class="card-body">
-                <form #editForm="ngForm" (ngSubmit)="updateRawMaterial()" autocomplete="off" id="editForm">
+                <form #editForm="ngForm" (ngSubmit)="register()" autocomplete="off" id="editForm">
                     <div class="form-row">
                         <div class="form-group col-md-9">
                             <input type="hidden" *ngIf="rawMaterial" [(ngModel)]="rawMaterial.id" class="text form-control" name="id">
@@ -21,7 +21,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-9">
                             <label for="supplier">Fornecedor</label>
-                            <select *ngIf="rawMaterial" [(ngModel)]="rawMaterial.supplierId" class="form-select form-control" name="supplier">
+                            <select *ngIf="rawMaterial" [(ngModel)]="rawMaterial.supplierId" class="form-select form-control" name="supplierId">
                                 <option *ngFor="let supplier of rawMaterialSuppliers" 
                                 [value]="supplier.id" 
                                 [ngValue]="supplier.id" 
@@ -34,7 +34,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-9">
                             <label for="type">Tipo</label>
-                            <select *ngIf="rawMaterial" [(ngModel)]="rawMaterial.typeId" class="form-select form-control" name="type">
+                            <select *ngIf="rawMaterial" [(ngModel)]="rawMaterial.typeId" class="form-select form-control" name="typeId">
                                 <option *ngFor="let materialType of rawMaterialTypes" 
                                 [value]="materialType.id" 
                                 [ngValue]="materialType.id"
@@ -60,6 +60,7 @@
             </div>
             <div class="card-footer">
                 <button form="editForm" type="submit" class="btn btn-success btn-block" [disabled]="!editForm.dirty">Registrar</button>
+                <button form="editForm" type="button" class="btn btn-secondary btn-block" (click)="cancel()">Cancelar</button>
             </div>
         </div>
     </div>

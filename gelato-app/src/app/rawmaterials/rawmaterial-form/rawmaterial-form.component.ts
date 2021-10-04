@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,41 +14,39 @@ import { RawMaterialService } from 'src/app/_services/rawmaterial.service';
   styleUrls: ['./rawmaterial-form.component.css']
 })
 
-export class RawmaterialFormComponent implements OnInit {
+export class RawmaterialFormComponent implements OnInit, OnChanges {
   
   @ViewChild('editForm') editForm: NgForm | undefined;
 
-  rawMaterial:  RawMaterial | undefined;
+  @Input() formMainLabel: string | undefined;
+  @Input() isToResetForm: boolean = false;
+  @Input() rawMaterial: RawMaterial | undefined;
+
+  @Output() cancelEditing = new EventEmitter();
+  @Output() registerRawMaterial = new EventEmitter();
+
   rawMaterialSuppliers: RawMaterialSupplier[] = [];
   rawMaterialTypes: RawMaterialType[] = [];
 
   constructor(private rawMaterialService: RawMaterialService, private route: ActivatedRoute, 
     private toastr: ToastrService) { 
-      this.rawMaterial = <RawMaterial>{} 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.isToResetForm) {
+      if (this.editForm) this.editForm.reset(this.rawMaterial);
+      this.isToResetForm = false;
+    }
   }
 
   ngOnInit(): void {
-    this.getRawMaterial();
     this.getRawMaterialSuppliers();
     this.getRawMaterialTypes();
-  }
-
-  getRawMaterial(){
-    let id: number = Number(this.route.snapshot.paramMap.get('id')) || 0;
-
-    if (id > 0) {
-      this.rawMaterialService.getRawMaterial(id).subscribe(material => {
-        this.rawMaterial = material;
-      })
-    } else {
-      this.rawMaterial = <RawMaterial>{} ;
-    }
   }
 
   getRawMaterialSuppliers(){
     this.rawMaterialService.getRawMaterialSuppliers().subscribe(suppliers => {
       this.rawMaterialSuppliers = suppliers;
-      console.debug(this.rawMaterialSuppliers)
     });
   }
 
@@ -58,12 +56,11 @@ export class RawmaterialFormComponent implements OnInit {
     });
   }
 
-  updateRawMaterial(){
-    if (this.rawMaterial) {
-      this.rawMaterialService.updateRawMaterial(this.rawMaterial).subscribe(() => {
-        this.toastr.success('Registrado com sucesso!');
-        if (this.editForm) this.editForm.reset(this.rawMaterial);
-      })
-    }
+  register(){
+    this.registerRawMaterial.emit(this.rawMaterial);
+  }
+
+  cancel() {
+    this.cancelEditing.emit();
   }
 }

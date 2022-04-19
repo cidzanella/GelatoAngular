@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { GelatoListComponent } from './gelatos/gelato-list/gelato-list.component';
 import { GelatoDetailComponent } from './gelatos/gelato-detail/gelato-detail.component';
@@ -34,6 +34,10 @@ import { TestErrorsComponent } from './errors/test-errors/test-errors.component'
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { BaserecipesComponent } from './baserecipes/baserecipes.component';
+import { GelatoCreateComponent } from './gelatos/gelato-create/gelato-create.component';
+import { GelatoUpdateComponent } from './gelatos/gelato-update/gelato-update.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +66,10 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     RawmaterialUpdateComponent,
     TestErrorsComponent,
     NotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    BaserecipesComponent,
+    GelatoCreateComponent,
+    GelatoUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -70,11 +77,13 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

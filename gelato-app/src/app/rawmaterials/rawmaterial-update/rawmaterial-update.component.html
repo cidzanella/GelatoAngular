@@ -2,6 +2,7 @@
     [rawMaterial]="rawMaterialToUpdate"
     [formMainLabel]="formUpdateLabel" 
     [isToResetForm]="resetForm"
+    (formDirty) = "isFormDirty($event)"
     (cancelEditing)="cancelUpdating()"
     (registerRawMaterial) = "updateRawMaterial($event)"
 >

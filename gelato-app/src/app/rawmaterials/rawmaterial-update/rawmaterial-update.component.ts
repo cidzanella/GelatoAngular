@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RawMaterial } from 'src/app/_models/rawmaterial';
@@ -14,7 +14,8 @@ export class RawmaterialUpdateComponent implements OnInit {
   formUpdateLabel = "Matéria Prima - Atualizar";
   resetForm: boolean = false;
   rawMaterialToUpdate: RawMaterial | undefined;
-  
+  formDirty: boolean = false;
+
   constructor(private rawMaterialService: RawMaterialService, 
     private route: ActivatedRoute, 
     private toastr: ToastrService) { }
@@ -54,4 +55,7 @@ export class RawmaterialUpdateComponent implements OnInit {
     this.rawMaterialService.navigateToRawMaterialList();
   }
 
+  isFormDirty(event: boolean){
+    this.formDirty = event;
+  }
 }

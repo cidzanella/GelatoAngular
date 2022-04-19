@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BaserecipesComponent } from './baserecipes/baserecipes.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
@@ -14,6 +15,7 @@ import { RawmaterialCreateComponent } from './rawmaterials/rawmaterial-create/ra
 import { RawmaterialListComponent } from './rawmaterials/rawmaterial-list/rawmaterial-list.component';
 import { RawmaterialUpdateComponent } from './rawmaterials/rawmaterial-update/rawmaterial-update.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,8 +31,9 @@ const routes: Routes = [
       {path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard]},
       {path: 'inventory/gelato-freezer', component: GelatoFreezerComponent},
       {path: 'rawmaterials', component: RawmaterialListComponent },
-      {path: 'rawmaterials/create', component: RawmaterialCreateComponent },
-      {path: 'rawmaterials/update/:id', component: RawmaterialUpdateComponent }
+      {path: 'rawmaterials/create', component: RawmaterialCreateComponent, canDeactivate: [PreventUnsavedChangesGuard]},
+      {path: 'rawmaterials/update/:id', component: RawmaterialUpdateComponent, canDeactivate: [PreventUnsavedChangesGuard]},
+      {path: 'baserecipes', component: BaserecipesComponent}
     ]
   },
   {path: 'errors', component: TestErrorsComponent},

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -12,6 +13,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     CommonModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
+    NgxSpinnerModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     })
@@ -19,6 +21,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
   exports: [
     BsDropdownModule,
     CollapseModule,
+    NgxSpinnerModule,
     ToastrModule
   ]
 })

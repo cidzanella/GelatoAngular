@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RawMaterial } from 'src/app/_models/rawmaterial';
 import { RawMaterialService } from 'src/app/_services/rawmaterial.service';
@@ -30,7 +29,7 @@ export class RawmaterialCreateComponent implements OnInit {
         this.toastr.success("Registrado com sucesso!");
         this.clearForm = true;
       })
-      this.rawMaterialService.navigateToRawMaterialList();
+    this.rawMaterialService.navigateToRawMaterialList();
     }
 
   cancelCreating(){

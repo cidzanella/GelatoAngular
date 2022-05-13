@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GelatoRecipe } from 'src/app/_models/gelatorecipe';
+import { GelatoRecipeService } from 'src/app/_services/gelatorecipe.service';
 
 @Component({
   selector: 'app-gelato-list',
@@ -7,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GelatoListComponent implements OnInit {
 
-  constructor() { }
-  isCollapsed: boolean = false;
+  gelatoRecipesList: GelatoRecipe[] =[];
 
+  constructor(private gelatoRecipeService: GelatoRecipeService) { }
+  
   ngOnInit(): void {
+    this.getGelatoRecipes();
   }
 
+  getGelatoRecipes() {
+    this.gelatoRecipeService.readGelatoRecipes().subscribe(gelatos => {
+      this.gelatoRecipesList = gelatos;
+    });
+  }
+
+  // onGelatoRecipesClick(gelato: GelatoRecipe){
+
+  // }
 }

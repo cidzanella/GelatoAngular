@@ -1,0 +1,65 @@
+<!-- FORMULÁRIO DE EDIÇÃO DO TIPO DE SORBETTO, TANTO PARA CREATE QUANTO UPDATE -->
+<div class="row">
+    <div class="col-4">
+        <form (ngSubmit)="register()" #editForm="ngForm" autocomplete="off" id="editForm">
+            <!-- tipo de Sorbetto - DESCRIÇÃO -->
+            <div>
+                <div class="card">
+                    <div class="card-header bg-secondary text-white" *ngIf="sorbettoType">
+                        {{formMainLabel}}
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <!-- id -->
+                            <div class="form-group col-md-9">
+                                <input type="hidden" *ngIf="sorbettoType" [(ngModel)]="sorbettoType.id" class="text form-group" name="id">
+                            </div>
+                            <!-- name -->
+                            <div class="form-group col-md-9">
+                                <label for="name">Nome</label>
+                                <input class="text form-control" name="name" *ngIf="sorbettoType" [(ngModel)]="sorbettoType.name">
+                            </div>
+                            <!-- description -->
+                            <div class="form-group col-md-9">
+                                <label for="description">Descrição</label>
+                                <input class="text form-control" name="description" *ngIf="sorbettoType" [(ngModel)]="sorbettoType.description">
+                            </div>
+                            <!-- ativo -->
+                            <div class="form-group col-md-9">
+                                <label for="status">Status</label>
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label" for="checkActive">
+                                        <input class="form-check-input inline" type="checkbox" name="active" value="true"
+                                        id="checkActive" *ngIf="sorbettoType" [(ngModel)]="sorbettoType.active" [checked]="sorbettoType.active">
+                                        Ativo
+                                    </label>                                
+                                </div>
+                            </div>
+                            <!-- estoque mínimo -->
+                            <div class="form-group col-md-9">
+                                <label for="minimumStock">Estque Mínimo</label>
+                                <input class="text form-control" name="minimumStock" *ngIf="sorbettoType" [(ngModel)]="sorbettoType.minimumStockLevel">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <!-- botões do form -->
+                        <button form="editForm" type="submit" class="btn btn-success btn-block" [disabled]="!editForm.dirty">Registrar</button>
+                        <div class="mt-2">
+                            <!-- verifica se tem id, se tiver então está em modo atualização: ajusta tamanho dos botões e apresenta botão excluir  -->
+                            <button form="editForm" type="button" class="btn btn-secondary btn-block" (click)="cancel()" *ngIf="!sorbettoType?.id">Voltar</button>
+                            <button form="editForm" type="button" class="btn btn-secondary col-md-6" (click)="cancel()" *ngIf="sorbettoType?.id">Voltar</button>
+                            <button form="editForm" type="button" class="btn btn-danger col-md-6" (click)="delete()" *ngIf="sorbettoType?.id">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-8">
+        <!-- verifica se tem id, se tiver então apresenta componente de criação da lista de ingredientes da receita  -->
+        <app-sorbettorecipe [sorbettoType]="sorbettoType" *ngIf="sorbettoType?.id"
+        >
+        </app-sorbettorecipe>
+    </div>
+</div>

@@ -1,1 +1,9 @@
-<p>gelato-update works!</p>
+<app-gelato-form
+    [gelatoRecipe]="gelatoRecipeToUpdate"
+    [formMainLabel]="formUpdateLabel"
+    [isToResetForm]="resetForm"
+    (formDirty) = "isFormDirty($event)"
+    (cancelEditing)="cancelUpdating()"
+    (registerGelatoRecipe)="updateGelatoRecipe($event)"
+>
+</app-gelato-form>

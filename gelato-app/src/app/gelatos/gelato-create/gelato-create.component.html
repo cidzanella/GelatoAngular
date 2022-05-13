@@ -1,1 +1,8 @@
-<p>gelato-create works!</p>
+<app-gelato-form
+    [formMainLabel]="formCreateLabel"
+    [isToResetForm]="clearForm"
+    [gelatoRecipe]="gelatoRecipe"
+    (cancelEditing)="cancelCreating()"
+    (registerGelatoRecipe)="createGelatoRecipe($event)"
+>
+</app-gelato-form>

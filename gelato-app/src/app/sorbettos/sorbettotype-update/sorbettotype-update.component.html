@@ -1,0 +1,10 @@
+<app-sorbettotype-form
+    [sorbettoType]="sorbettoTypeToUpdate"
+    [formMainLabel]="formUpdateLabel"
+    [isToResetForm]="resetForm"
+    (formDirty)="isFormDirty($event)"
+    (cancelEditing)="cancelUpdating()"
+    (registerSorbettoType)="updateSorbettoType($event)"
+    (deleteSorbettoType)="deleteSorbettoType($event)"
+>
+</app-sorbettotype-form>

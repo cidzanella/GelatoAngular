@@ -1,0 +1,77 @@
+<div>
+
+    <form [formGroup]="recipeForm!" (ngSubmit)="addRecipeItem()" autocomplete="off" >
+        <div class="row">
+            <div class="col col-1"></div>
+            <div class="col col-5">
+                <!-- CARD LISTING RECIPE ITEMS  -->
+                <div class="card">
+                    <div class="card-header">
+                            Receita - {{sorbettoType?.name}}
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group" >
+                            <div class="row">
+                                <div class="col col-1"></div>
+                                <div class="col col-11">
+                                    <button type="button" class="btn btn-primary btn-sm mb-2" (click)="showNewItemForm()">+</button>
+                                    <input type="hidden" formControlName="sorbettoTypeIdControl">
+                                    <table class="table table-hover" formControlName="sorbettoRecipeControl" ngDefaultControl>
+                                        <tbody>
+                                            <tr *ngFor="let item of sorbettoRecipe"  (click)="onListClick(item)" (dblclick)="onListDoubleClick()">
+                                                <td>{{item.rawMaterial.name}}</td>
+                                                <td>{{item.gramsPerKg}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-1"></div>
+            <div class="col col-5">
+                <!-- CARD SHOWING EDIT FORM FOR ITEMS TO THE RECIPE -->
+                <div class="card" *ngIf="showEditForm">
+                    <div class="card-header">
+                        Ingrediente
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group" >
+                            <div class="row">
+                                <div class="col col-1"></div>
+                                <div class="col col-11">
+                                    <div class="form-group">
+                                        <input type="hidden" formControlName="recipeItemIdControl">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ingrediente</label>
+                                        <select class="form-control" formControlName="rawMaterialControl" (change)="onRawMaterialChange()"  [attr.disabled]="sorbettoRecipeItemEditing ? '' : null">
+                                            <option [ngValue]="null" disabled>Indique o ingrediente ...</option>
+                                            <option *ngFor="let item of rawMaterials" [ngValue]=item>{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quantidade (gramas)</label>
+                                        <input type="text" class="form-control" formControlName="gramsPerKgControl" placeholder="000">
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <div class="m-2">
+                                            <div  class="form-group">
+                                                <button *ngIf="!sorbettoRecipeItemEditing" class="btn btn-block btn-outline-success" type="submit">Adicionar</button>
+                                                <button class="btn btn-block btn-outline-secondary" type="button" (click)="cancelEditing()">Cancelar</button>
+                                                <button *ngIf="sorbettoRecipeItemEditing" class="btn btn-block btn-outline-primary" type="button" (click)="updateRecipeItem()">Atualizar</button>
+                                                <button *ngIf="sorbettoRecipeItemEditing" class="btn btn-block btn-outline-danger" type="button" (click)="removeRecipeItem()">Remover</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>                

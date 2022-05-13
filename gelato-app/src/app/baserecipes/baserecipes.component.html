@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label>Ingrediente</label>
-                        <select class="form-control" formControlName="rawMaterialControl" (change)="onRawMaterialChange()">
+                        <select class="form-control" formControlName="rawMaterialControl" (change)="onRawMaterialChange()" [attr.disabled]="baseRecipeItemEditing ? '' : null">
                             <option [ngValue]="null" disabled>Indique o ingrediente ...</option>
                             <option *ngFor="let item of rawMaterials" [ngValue]=item>{{item.name}}</option>
                         </select>

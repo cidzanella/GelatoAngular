@@ -1,1 +1,187 @@
-<p>gelato-form works!</p>
+
+<!-- FORMULÁRIO DE EDIÇÃO DE RECEITA DE GELATO, TANTO PARA CREATE QUANTO UPDATE -->
+<div>
+    <form #editForm="ngForm" (ngSubmit)="register()" autocomplete="off" id="editForm">
+        <div class="row">        
+            <!-- GELATO DESCRIÇÃO -->
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header" *ngIf="gelatoRecipe">
+                        {{formMainLabel}}
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <!-- id -->
+                            <div class="form-group col-md-9">
+                                <input type="hidden" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.id" class="text form-control" name="id">
+                            </div>
+                            <!-- nome -->
+                            <div class="form-group col-md-9">
+                                <label for="name">Nome</label>
+                                <input class="text form-control" name="name" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.name">
+                            </div>
+                            <!-- descrição -->
+                            <div class="form-group col-md-9">
+                                <label for="description">Descrição</label>
+                                <input class="text form-control" name="description" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.description"> 
+                            </div>
+                            <!-- ativo -->
+                            <div class="form-group col-md-9">
+                                <label for="status">Status</label>
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label" for="checkActive">
+                                        <input class="form-check-input inline" type="checkbox" name="active" value="true"
+                                        id="checkActive" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.active" [checked]="gelatoRecipe.active">
+                                        Ativo
+                                    </label>                                
+                                </div>
+                            </div>
+                            <!-- camadas -->
+                            <div class="form-group col-md-9">
+                                <label for="layers">Camadas de Extração</label>
+                                <input class="text form-control" name="layers" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.extractionLayers">
+                            </div>
+                            <!-- estoque mínimo -->
+                            <div class="form-group col-md-9">
+                                <label for="minimumStock">Estque Mínimo</label>
+                                <input class="text form-control" name="minimumStock" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.minimumStockLevel">
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <!-- RECEITA PASTAS -->
+            <div class="col-4">
+                <!-- MENSAGEM ALERTA -->
+                <div class="alert alert-info" *ngIf="editForm.dirty">
+                    <strong>Informação:</strong> Você fez alterações que ainda não foram salvas. Clique em Registrar para salvar as mudanças!
+                </div>
+                <!-- CARD RECEITA PASTAS -->
+                <div class="card">
+                    <div class="card-header" *ngIf="gelatoRecipe">
+                        Receita - Pasta Saborizante
+                    </div>
+                    <!-- tipo de base e quantidades -->
+                    <div class="card-body">
+                        <div class="form-group form-row">
+                            <!-- tipo de base -->
+                            <div class="col-8">
+                                <label for="baseType">Tipo de Base</label>
+                                <select class="form-select form-control" name="baseTypeId" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.baseTypeId">
+                                    <option *ngFor="let baseType of baseTypes"
+                                    [value]="baseType.id"
+                                    [ngValue]="baseType.id"
+                                    [selected]="baseType.id == gelatoRecipe.baseTypeId || 0">
+                                        {{baseType.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- quantidade em gramas -->
+                            <div class="col-4">
+                                <label for="baseInGrams">Gramas</label>
+                                <input class="text form-control" name="baseInGrams" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.baseInGrams">
+                            </div>
+                        </div>
+                        <!-- tipo pasta A e quantidade -->
+                        <div class="form-group form-row">
+                            <!-- tipo de pasta A-->
+                            <div class="col-8">
+                                <label for="pastaAId">Pasta A</label>
+                                <select class="form-select form-control" name="pastaAId" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.pastaAId">
+                                    <option *ngFor="let pasta of rawMaterials"
+                                    [value]="pasta.id"
+                                    [ngValue]="pasta.id"
+                                    [selected]="pasta.id == gelatoRecipe.pastaAId || 0">
+                                        {{pasta.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- quantidade em gramas -->
+                            <div class="col-4">
+                                <label for="pastaAInGrams">Gramas</label>
+                                <input class="text form-control" name="pastaAInGrams" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.pastaAInGrams">
+                            </div>
+                        </div>
+                        <!-- tipo pasta B e quantidade -->
+                        <div class="form-group form-row">
+                            <!-- tipo de pasta B-->
+                            <div class="col-8">
+                                <label for="pastaBId">Pasta B</label>
+                                <select class="form-select form-control" name="pastaBId" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.pastaBId">
+                                    <option *ngFor="let pasta of rawMaterials"
+                                    [value]="pasta.id"
+                                    [ngValue]="pasta.id"
+                                    [selected]="pasta.id == gelatoRecipe.pastaBId || 0">
+                                        {{pasta.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- quantidade em gramas -->
+                            <div class="col-4">
+                                <label for="pastaBInGrams">Gramas</label>
+                                <input class="text form-control" name="pastaBInGrams" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.pastaBInGrams">
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+            <!-- VARIEGATOS  -->
+            <div class="col-4">
+                <!-- CARD RECEITA VARIEGATOS -->
+                <div class="card">
+                    <div class="card-header" *ngIf="gelatoRecipe">
+                        Receita - Variegatos
+                    </div>
+                    <!-- tipo variegato A e quantidade -->
+                    <div class="card-body">
+                        <div class="form-group form-row">
+                            <!-- tipo de variegato A-->
+                            <div class="col-8">
+                                <label for="variegatoAId">Variegato A</label>
+                                <select class="form-select form-control" name="variegatoAId" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.variegatoAId">
+                                    <option *ngFor="let variegato of rawMaterials"
+                                    [value]="variegato.id"
+                                    [ngValue]="variegato.id"
+                                    [selected]="variegato.id == gelatoRecipe.variegatoAId || 0">
+                                        {{variegato.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- quantidade em gramas -->
+                            <div class="col-4">
+                                <label for="variegatoAInGrams">Gramas</label>
+                                <input class="text form-control" name="variegatoAInGrams" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.variegatoAInGrams">
+                            </div>
+                        </div>
+                        <!-- tipo variegato B e quantidade -->
+                        <div class="form-group form-row">
+                            <!-- tipo de variegato B-->
+                            <div class="col-8">
+                                <label for="variegatoBId">Variegato B</label>
+                                <select class="form-select form-control" name="variegatoBId" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.variegatoBId">
+                                    <option *ngFor="let variegato of rawMaterials"
+                                    [value]="variegato.id"
+                                    [ngValue]="variegato.id"
+                                    [selected]="variegato.id == gelatoRecipe.variegatoBId || 0">
+                                        {{variegato.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- quantidade em gramas -->
+                            <div class="col-4">
+                                <label for="variegatoBInGrams">Gramas</label>
+                                <input class="text form-control" name="variegatoBInGrams" *ngIf="gelatoRecipe" [(ngModel)]="gelatoRecipe.variegatoBInGrams">
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+                <div class="mt-2">
+                    <!-- BOTÕES DO FORM -->
+                    <button form="editForm" type="submit" class="btn btn-success btn-block" [disabled]="!editForm.dirty">Registrar</button>
+                    <button form="editForm" type="button" class="btn btn-secondary btn-block" (click)="cancel()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -34,12 +34,12 @@ export class RawmaterialUpdateComponent implements OnInit {
     } else {
       this.rawMaterialToUpdate = <RawMaterial>{};
     }
-
   }
 
   updateRawMaterial(rawMaterial: RawMaterial){
-
-    this.resetForm = false; //to pull the OnChange trigger and provoque the event calling when setting property to true down below
+    //to pull the OnChange trigger and provoque the event 
+    // calling when setting property to true down below
+    this.resetForm = false; 
 
     if (rawMaterial) {
       this.rawMaterialService.updateRawMaterial(rawMaterial).subscribe(() => {
@@ -52,6 +52,16 @@ export class RawmaterialUpdateComponent implements OnInit {
 
   cancelUpdating(){
     this.toastr.warning("Atualização cancelada!");
+    this.rawMaterialService.navigateToRawMaterialList();
+  }
+
+  deleteRawMaterial(rawMaterial: RawMaterial){
+    if (rawMaterial){
+      this.rawMaterialService.deleteRawMaterial(rawMaterial.id).subscribe( () => {
+        this.toastr.success("Excluído co sucesso!");
+        this.resetForm = true;
+      })
+    }
     this.rawMaterialService.navigateToRawMaterialList();
   }
 

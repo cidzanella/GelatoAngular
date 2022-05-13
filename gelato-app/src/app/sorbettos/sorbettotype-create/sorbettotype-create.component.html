@@ -1,0 +1,11 @@
+<app-sorbettotype-form
+    [formMainLabel]="formCreateLabel"
+    [sorbettoType]="sorbettoType"
+    (cancelEditing)="cancelCreating()"
+    (registerSorbettoType)="createSorbettoType($event)"
+    (formDirty)="isFormDirty($event)"
+    (deleteSorbettoType)="deleteSorbettoType($event)"
+
+>
+
+</app-sorbettotype-form>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { BaseRecipeItem } from '../_models/baserecipe';
+import { BaseRecipeItem } from '../_models/baserecipeitem';
 import { BaseType } from '../_models/basetype';
 import { RawMaterial } from '../_models/rawmaterial';
 import { BaseRecipeService } from '../_services/base-recipe.service';
@@ -21,6 +21,7 @@ export class BaserecipesComponent implements OnInit {
   baseRecipeSelected: BaseRecipeItem[] = [];
   rawMaterials: RawMaterial[] = [];
   baseRecipeItemEditing: BaseRecipeItem | undefined;
+  isEditing: boolean = false;
 
   constructor(private _serviceBaseRecipe: BaseRecipeService, 
     private _serviceRawMaterial: RawMaterialService,

@@ -97,7 +97,7 @@ export class RawMaterialService {
     )
   }
 
-  //frontend navigation
+  //frontend navigation: after creating or updating a rawmaterial navigates back to materials list
   navigateToRawMaterialList(){
     this.router.navigateByUrl('/rawmaterials');
   }

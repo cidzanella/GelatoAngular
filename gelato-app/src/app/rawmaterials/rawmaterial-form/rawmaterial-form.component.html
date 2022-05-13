@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-4"></div>
+    <div class="col-4"> </div>
     <div class="col-4">
         <div class="alert alert-info" *ngIf="editForm.dirty">
             <strong>Informação:</strong> Você fez alterações que ainda não foram salvas. Clique em Registrar para salvar as mudanças!
@@ -13,7 +13,7 @@
                             <input type="hidden" *ngIf="rawMaterial" [(ngModel)]="rawMaterial.id" class="text form-control" name="id">
                         </div>
                         <div class="form-group col-md-9">
-                            <label for="supplier">Nome </label>
+                            <label for="name">Nome </label>
                             <input *ngIf="rawMaterial" [(ngModel)]="rawMaterial.name" class="text form-control" name="name">
                             <!-- <input class="text form-control" name="name" [value]="rawMaterial.name || ''"/> -->
                         </div>
@@ -47,10 +47,10 @@
                     <div class="form-row">
                         <div class="form-group col-md-9">
                             <label>Status</label>
-                                <div class="form-check form-switch">
+                            <div class="form-check form-switch">
                                 <label class="form-check-label" for="checkActive">
                                     <input class="form-check-input inline" type="checkbox" name="active" value="true"
-                                     id="checkActive" *ngIf="rawMaterial" [(ngModel)]="rawMaterial.active"  [checked]="rawMaterial.active"  >
+                                        id="checkActive" *ngIf="rawMaterial" [(ngModel)]="rawMaterial.active"  [checked]="rawMaterial.active"  >
                                     Ativo
                                 </label>
                             </div>
@@ -59,8 +59,15 @@
                 </form>
             </div>
             <div class="card-footer">
-                <button form="editForm" type="submit" class="btn btn-success btn-block" [disabled]="!editForm.dirty">Registrar</button>
-                <button form="editForm" type="button" class="btn btn-secondary btn-block" (click)="cancel()">Cancelar</button>
+                <div>
+                    <button form="editForm" type="submit" class="btn btn-success btn-block" [disabled]="!editForm.dirty">Registrar</button>
+                </div>
+                <div class="mt-2">
+                    <!-- verifica se tem id, se tiver então está em modo atualização: ajusta tamanho dos botões e apresenta botão excluir  -->
+                    <button form="editForm" type="button" class="btn btn-secondary btn-block" (click)="cancel()" *ngIf="!rawMaterial?.id">Cancelar</button>
+                    <button form="editForm" type="button" class="btn btn-secondary col-md-6" (click)="cancel()" *ngIf="rawMaterial?.id">Cancelar</button>
+                    <button form="editForm" type="button" class="btn btn-danger col-md-6" (click)="delete()" *ngIf="rawMaterial?.id">Excluir</button>
+                </div>
             </div>
         </div>
     </div>

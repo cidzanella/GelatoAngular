@@ -38,6 +38,11 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { BaserecipesComponent } from './baserecipes/baserecipes.component';
 import { GelatoCreateComponent } from './gelatos/gelato-create/gelato-create.component';
 import { GelatoUpdateComponent } from './gelatos/gelato-update/gelato-update.component';
+import { SorbettotypeCreateComponent } from './sorbettos/sorbettotype-create/sorbettotype-create.component';
+import { SorbettotypeUpdateComponent } from './sorbettos/sorbettotype-update/sorbettotype-update.component';
+import { SorbettotypeFormComponent } from './sorbettos/sorbettotype-form/sorbettotype-form.component';
+import { SorbettotypeListComponent } from './sorbettos/sorbettotype-list/sorbettotype-list.component';
+import { SorbettorecipeComponent } from './sorbettos/sorbettorecipe/sorbettorecipe.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +74,12 @@ import { GelatoUpdateComponent } from './gelatos/gelato-update/gelato-update.com
     ServerErrorComponent,
     BaserecipesComponent,
     GelatoCreateComponent,
-    GelatoUpdateComponent
+    GelatoUpdateComponent,
+    SorbettotypeCreateComponent,
+    SorbettotypeUpdateComponent,
+    SorbettotypeFormComponent,
+    SorbettotypeListComponent,
+    SorbettorecipeComponent
   ],
   imports: [
     BrowserModule,

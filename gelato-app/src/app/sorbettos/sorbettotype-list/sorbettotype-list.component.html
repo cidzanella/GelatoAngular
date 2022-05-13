@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header bg-secondary text-white" >
+        <div class="card-title">
+            Sorbetto
+        </div>
+    </div>
+    <div class="card-body">
+        <button class="btn btn-primary btn-sm mb-2" routerLink='/sorbettotypes/create/'>+</button>
+  
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr *ngFor="let sorbetto of sorbettoTypes" routerLink='/sorbettotypes/update/{{sorbetto.id}}' >
+                <td>{{sorbetto.name}}</td>
+                    <td>{{sorbetto.description}}</td>
+                    <td>{{sorbetto.active}}</td>
+                    <td>{{sorbetto.active ? "Ativo" : "Descontinuado"}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>

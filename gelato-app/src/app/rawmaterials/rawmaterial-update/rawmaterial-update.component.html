@@ -2,8 +2,10 @@
     [rawMaterial]="rawMaterialToUpdate"
     [formMainLabel]="formUpdateLabel" 
     [isToResetForm]="resetForm"
-    (formDirty) = "isFormDirty($event)"
+    (formDirty)="isFormDirty($event)"
     (cancelEditing)="cancelUpdating()"
-    (registerRawMaterial) = "updateRawMaterial($event)"
+    (registerRawMaterial)="updateRawMaterial($event)"
+    (deleteRawMaterial)="deleteRawMaterial($event)"
 >
 </app-rawmaterial-form>
+

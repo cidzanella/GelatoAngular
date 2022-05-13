@@ -7,23 +7,32 @@ import { environment } from 'src/environments/environment';
 import { BaseType } from '../_models/basetype';
 import { GelatoRecipe } from '../_models/gelatorecipe';
 import { RawMaterial } from '../_models/rawmaterial';
+import { BaseRecipeService } from './base-recipe.service';
+import { RawMaterialService } from './rawmaterial.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class GelatorecipeService {
+export class GelatoRecipeService {
   
   baseURL = environment.apiURL;
 
   //app state: service storage
   gelatoRecipes: GelatoRecipe[] = [];
   rawMaterials: RawMaterial[] = [];
+  variegatos: RawMaterial[] = [];
+  pastas: RawMaterial[] = [];
   baseTypes: BaseType[] = [];
   
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, 
+    private rawMaterialService: RawMaterialService,
+    private baseRecipeService: BaseRecipeService) {
+      this.readBaseTypes();
+      this.readRawMaterials();
+     }
 
-  getGelatoRecipes() {
+  readGelatoRecipes() {
     //check if local storage has the data and return it as an osbservable using the 'of' operator
     if (this.gelatoRecipes.length >0) return of(this.gelatoRecipes);
     return this.http.get<GelatoRecipe[]>(this.baseURL + 'gelatorecipes').pipe(
@@ -34,14 +43,14 @@ export class GelatorecipeService {
     );
   }
 
-  getGelatoRecipe(id: number) {
+  readGelatoRecipe(id: number) {
     const recipe = this.gelatoRecipes.find(r => r.id === id);
     if (recipe !== undefined) return of(recipe);
-    return this.http.get(this.baseURL + `gelatorecipes/${id}`);
+    return this.http.get<GelatoRecipe>(this.baseURL + `gelatorecipes/${id}`);
   }
 
   createGelatoRecipe(gelatoRecipe: GelatoRecipe) {
-    const recipe = this.http.put<GelatoRecipe>(this.baseURL + `gelatorecipes`, gelatoRecipe).pipe(
+    return this.http.post<GelatoRecipe>(this.baseURL + `gelatorecipes`, gelatoRecipe).pipe(
       map(recipe => {
         recipe.baseType = this.baseTypes.find(b => b.id === recipe.baseTypeId)!;
         if (recipe.pastaAId) recipe.pastaA = this.rawMaterials.find(m => m.id === recipe.pastaAId)!;
@@ -73,6 +82,34 @@ export class GelatorecipeService {
         }
       })
     );
+  }
+
+  // Poderia criar getVariegatos e getPastas
+  readRawMaterials(){
+    this.rawMaterialService.getRawMaterials().subscribe(materials => {
+      this.rawMaterials = materials;
+    });
+  }
+
+  //filtar por RawMaterialType: 1 (pasta) ou 3 (pasta/variegato)
+  readVariegatos(){
+
+  }
+
+  //filtar por RawMaterialType: 2 (variegato) ou 3 (pasta/variegato) ou 5 (basica/variegato)
+  readPastas(){
+
+  }
+
+  readBaseTypes(){
+    this.baseRecipeService.getBaseTypes().subscribe(types => {
+      this.baseTypes = types;
+    });
+  }
+
+  //frontend navigation: after creating or updating a recipe navigates back to gelatos list
+  navigateToGelatoList(){
+    this.router.navigateByUrl('/gelatos');
   }
 
 }

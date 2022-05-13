@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { BaseRecipeItem } from '../_models/baserecipe';
+import { BaseRecipeItem } from '../_models/baserecipeitem';
 import { BaseType } from '../_models/basetype';
 
 @Injectable({

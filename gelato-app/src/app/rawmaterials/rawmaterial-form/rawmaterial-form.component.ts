@@ -25,6 +25,7 @@ export class RawmaterialFormComponent implements OnInit, OnChanges {
   @Output() cancelEditing = new EventEmitter();
   @Output() registerRawMaterial = new EventEmitter();
   @Output() formDirty = new EventEmitter();
+  @Output() deleteRawMaterial = new EventEmitter();
 
   rawMaterialSuppliers: RawMaterialSupplier[] = [];
   rawMaterialTypes: RawMaterialType[] = [];
@@ -63,6 +64,10 @@ export class RawmaterialFormComponent implements OnInit, OnChanges {
 
   cancel() {
     this.cancelEditing.emit();
+  }
+
+  delete() {
+    this.deleteRawMaterial.emit(this.rawMaterial);
   }
 
   dirty() {
